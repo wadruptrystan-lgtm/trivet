@@ -3,3 +3,4 @@ shots*/
 tests/*.out
 tools/sim/out/
 node_modules/
+tests/*.png

@@ -10,6 +10,7 @@ This concatenates `src/` into one page:
 - `dist/trivet.html`: the game, a single self-contained file.
 - `dist/test.html`: the same page with a doctype, used by the tests.
 - `dist/app.js`: the combined script, for `node --check`.
+- `dist/web/`: the installable web app: `index.html`, `manifest.webmanifest`, the offline service worker `sw.js` and the icons, copied from `web/`. Host this folder on any static host served over https.
 
 ## Layout
 - `src/engine.js`: the Scoop rules engine and AI (global `Scoop`).
@@ -31,6 +32,7 @@ node tests/found.js
 node tests/rules.js dist/test.html tests/rules.out    # tuned trophy rules
 node tests/fixes.js dist/test.html tests/fixes.out    # trophy review fixes
 node tests/streak.js dist/test.html tests/streak.out  # Daily streak trophies
+node tests/webapp.js                                  # web app: manifest, icons, offline start
 ```
 The test scripts load Playwright from `/opt/node-tools/node_modules/playwright`. Change that path to `require('playwright')` on another machine.
 
