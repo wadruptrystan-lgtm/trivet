@@ -1,0 +1,90 @@
+/* ================= tablex: avatars, emotes, Peek and Swap, season line ================= */
+/* avatars at the table keep the monogram sizes and the acting ring */
+.tx-avw{position:relative;display:grid;place-items:center}
+.opp .tx-oava,.tx-meava{box-shadow:inset 0 -3px 0 rgba(0,0,0,.08),0 0 0 2px var(--bg),0 0 0 3.5px var(--ring,transparent);transition:box-shadow .3s}
+.opp.acting .tx-oava,.tx-foot.acting .tx-meava{--ring:var(--heat-warm)}
+@media (prefers-reduced-motion:no-preference){.opp.acting .tx-oava{animation:tx-sweep 1.2s linear infinite}}
+@keyframes tx-sweep{50%{box-shadow:inset 0 -3px 0 rgba(0,0,0,.08),0 0 0 2px var(--bg),0 0 0 4.5px rgba(255,179,122,.55)}}
+.srow .ava,.hr .ava{box-shadow:inset 0 -3px 0 rgba(0,0,0,.08)}
+.srow.me .ava{box-shadow:inset 0 -3px 0 rgba(0,0,0,.08),0 0 0 2px var(--surface),0 0 0 3.5px var(--heat-warm)}
+
+/* Peek: the chip you saw, pinned to the rival's avatar */
+.tx-pk{position:absolute;right:calc(50% + 9px);bottom:-5px;display:flex;align-items:center;gap:3px;padding:2px 2px 2px 4px;border-radius:99px;background:var(--surface-2);box-shadow:0 0 0 1.5px #A99CF4,0 6px 14px rgba(0,0,0,.45);z-index:3;pointer-events:none}
+.tx-pk .cur{width:14px;height:14px}
+.tx-pk .chip{--d:22px}
+.bubble.tx-pkbub{background:#E6E0FF;color:#231B4D}
+@media (prefers-reduced-motion:no-preference){.tx-pk{animation:tx-in .35s cubic-bezier(.2,1.4,.4,1) both}}
+
+/* emote bubbles: rivals get a badge on the avatar (chatter stays below the card), you get one above your avatar */
+.tx-emb,.tx-mebub{position:absolute;display:grid;place-items:center;background:var(--text);color:var(--bg);pointer-events:none;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;line-height:1;box-shadow:0 10px 22px rgba(0,0,0,.5)}
+.tx-emb{left:calc(50% + 7px);top:-10px;width:34px;height:34px;border-radius:50% 50% 50% 6px;font-size:20px;z-index:7}
+.tx-mebub{left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;font-size:28px;z-index:31}
+/* in, then out near the end; each keyframe set ends where it should rest, so the in-app reduced-motion switch (which zeroes durations) keeps them visible */
+@media (prefers-reduced-motion:no-preference){.tx-emb,.tx-mebub{animation:tx-emo-in .34s cubic-bezier(.2,1.5,.4,1) both,tx-emo-out .35s ease-in 2.05s forwards;transform-origin:0 100%}.tx-mebub{transform-origin:50% 50%}}
+@keyframes tx-emo-in{from{transform:scale(.3);opacity:0}}
+@keyframes tx-emo-out{to{transform:translateY(-6px);opacity:0}}
+@keyframes tx-in{from{transform:scale(.4);opacity:0}}
+
+/* your footer */
+.tx-foot{position:relative;gap:8px}
+/* .mefoot .who span sets UI type on every span in your corner; emoji need their own face back */
+.mefoot.tx-foot .who :is(.ava,.tx-mebub){font:calc(var(--as,44px) * .56)/1 "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.mefoot.tx-foot .who .tx-mebub{font-size:28px;color:var(--bg)}
+.tx-foot .who{min-width:0}
+.tx-mew{position:relative;display:grid;place-items:center;flex:none}
+.tx-me{position:relative;width:44px;height:44px;margin:-5px;border-radius:50%;display:grid;place-items:center}
+.tx-me:not(:disabled):active .ava{transform:scale(.94)}
+.tx-me .ava{transition:transform .12s}
+.tx-mehint{position:absolute;right:1px;bottom:1px;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);box-shadow:0 0 0 2px var(--bg)}
+.tx-mehint svg{width:11px;height:11px}
+.tx-me[aria-expanded="true"] .tx-mehint{background:var(--cta);color:var(--cta-ink)}
+.tx-right{display:flex;align-items:center;flex:none}
+.tx-boosts{display:flex;gap:8px;margin-left:auto}
+.tx-bst{display:inline-flex;align-items:center;gap:5px;height:40px;padding:0 13px 0 9px;border-radius:99px;background:var(--surface-2);font:700 14px/1 var(--f-ui);font-variant-numeric:tabular-nums;transition:opacity .2s,box-shadow .2s,background .2s,transform .1s}
+.tx-bst .cur{width:20px;height:20px}
+.tx-bst:active{transform:scale(.95)}
+.tx-bst[aria-disabled="true"]{opacity:.42}
+.tx-bst[aria-disabled="true"]:focus-visible{opacity:.85}
+.tx-bst.none b{color:var(--muted)}
+.tx-bst[aria-pressed="true"]{opacity:1;background:color-mix(in oklab,#93D670 22%,var(--surface-2));box-shadow:0 0 0 2px #93D670}
+
+/* emote picker */
+.tx-pop{position:absolute;left:12px;bottom:calc(100% - 2px);z-index:32;display:flex;gap:2px;padding:6px;border-radius:24px;background:color-mix(in oklab,var(--surface-2) 88%,white);box-shadow:0 20px 44px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.07)}
+.tx-pop::after{content:"";position:absolute;left:20px;bottom:-6px;width:14px;height:14px;background:inherit;transform:rotate(45deg);border-radius:0 0 4px 0;z-index:-1}
+@media (prefers-reduced-motion:no-preference){.tx-pop{animation:tx-pop .22s cubic-bezier(.2,1.2,.4,1) both;transform-origin:30px 100%}}
+@keyframes tx-pop{from{transform:translateY(8px) scale(.9);opacity:0}}
+.tx-emo{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;font:26px/1 "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;transition:background .15s,transform .1s}
+.tx-emo:hover,.tx-emo:focus-visible{background:rgba(255,255,255,.1)}
+.tx-emo:active{transform:scale(.9)}
+
+/* Swap mode: every chip in your hand is a choice */
+.hand.tx-swap .chip{cursor:pointer}
+.hand.tx-swap .chip::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2.5px dashed #93D670;pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.hand.tx-swap .chip::after{animation:tx-spin 9s linear infinite}}
+@keyframes tx-spin{to{transform:rotate(360deg)}}
+.actions .tx-swaphint{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--text)}
+.tx-swaphint span{min-width:0}
+.tx-cancel{min-height:40px;flex:none}
+
+/* recap */
+.tx-rcswap{font-size:13px;font-weight:600;color:#BFE7A9;margin-top:4px}
+
+/* result: season line */
+.tx-season{margin-top:12px}
+.tx-shead{display:flex;align-items:center;gap:12px}
+.tx-stier{width:40px;height:40px;flex:none;border-radius:13px;display:grid;place-items:center;background:linear-gradient(150deg,#FFE6C2,#FFB37A 55%,#EE7440);color:var(--cta-ink);font:800 18px/1 var(--f-num);font-variation-settings:"SOFT" 100;font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3)}
+.tx-stxt{flex:1;min-width:0}
+.tx-stxt b{display:block;font:700 15px/1.25 var(--f-ui);margin-top:3px;font-variant-numeric:tabular-nums}
+.tx-claim{min-height:40px;padding:0 16px;border-radius:14px;font-size:14px;flex:none}
+.tx-cnt{display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--cta-ink);color:var(--cta);font:800 11px/1 var(--f-ui)}
+.tx-sbar{height:5px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:14px}
+.tx-sbar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#FFE6C2,#FFB37A);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.tx-stxt b span{white-space:nowrap}
+.tx-season .tx-sfoot{margin-top:10px;align-items:center;min-height:20px}
+.tx-sfoot .tx-claim{margin-block:-2px -6px}
+
+@container (max-height:760px){
+  .opp .tx-oava{--as:34px!important}
+  .tx-emb{left:calc(50% + 5px);top:-3px;width:30px;height:30px;font-size:17px}
+  .tx-pk{right:calc(50% + 6px)}
+}

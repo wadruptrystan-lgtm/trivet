@@ -1,0 +1,5 @@
+dist/
+shots*/
+tests/*.out
+tools/sim/out/
+node_modules/

@@ -1,0 +1,62 @@
+<div id="stage">
+  <div class="field" aria-hidden="true">
+    <svg viewBox="0 0 400 400"><circle cx="200" cy="180" r="140" fill="none" stroke="#fff" stroke-width="3"/><circle cx="120" cy="360" r="9" fill="#fff"/><circle cx="200" cy="372" r="9" fill="#fff"/><circle cx="280" cy="360" r="9" fill="#fff"/></svg>
+    <svg class="ring2" viewBox="0 0 400 400"><circle cx="200" cy="180" r="140" fill="none" stroke="#fff" stroke-width="4"/><circle cx="120" cy="360" r="10" fill="#fff"/><circle cx="200" cy="372" r="10" fill="#fff"/><circle cx="280" cy="360" r="10" fill="#fff"/></svg>
+  </div>
+  <div class="field-mark" aria-hidden="true"><b>trivet</b><span>Simple. Modern. Scoop.</span></div>
+  <main id="app" class="table-aubergine glaze-porcelain num-fraunces tray-slate">
+    <section id="home" class="screen">
+      <div id="views" class="views"></div>
+      <nav class="tabs" aria-label="Sections">
+        <button data-tab="shop"></button>
+        <button data-tab="play"></button>
+        <button data-tab="league"></button>
+        <button data-tab="profile"></button>
+      </nav>
+    </section>
+
+    <section id="sub" class="screen sub" hidden aria-labelledby="sub-title">
+      <header class="t-top sub-top">
+        <button class="iconbtn" id="sub-back" aria-label="Back" aria-describedby="sub-title"></button>
+        <div class="t-title"><h1 id="sub-title"></h1></div>
+        <div class="sub-right" id="sub-right"></div>
+      </header>
+      <div class="views" id="sub-views"></div>
+    </section>
+
+    <section id="table" class="screen" hidden aria-label="Table">
+      <header class="t-top">
+        <button class="iconbtn" id="t-back" aria-label="Leave match"></button>
+        <div class="t-title"><b id="t-venue"></b><span id="t-hand"></span></div>
+        <button class="iconbtn" id="t-menu" aria-label="Table settings"></button>
+      </header>
+      <div class="opps" id="t-opps"></div>
+      <div class="infostrip">
+        <div class="bag" id="t-bag"></div>
+        <button class="unseen" id="t-unseen" aria-label="Unseen chips by number"></button>
+      </div>
+      <div class="trays" id="t-trays"></div>
+      <div class="glance" id="t-glance"></div>
+      <div class="hand" id="t-hand-chips" aria-label="Your chips"></div>
+      <div class="actions" id="t-actions"></div>
+      <div class="mefoot" id="t-me"></div>
+    </section>
+
+    <section id="result" class="screen" hidden>
+      <div class="views" id="r-views"></div>
+    </section>
+
+    <section id="recap" class="screen" hidden>
+      <header class="t-top">
+        <button class="iconbtn" id="rc-back" aria-label="Back to results"></button>
+        <div class="t-title"><b>What they held</b><span id="rc-sub"></span></div>
+        <span></span>
+      </header>
+      <div class="views" id="rc-views" style="padding-bottom:32px"></div>
+    </section>
+
+    <div id="t-log" class="sr-only" role="log" aria-live="polite"></div>
+    <div id="sheet" class="sheet" hidden></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+</div>
