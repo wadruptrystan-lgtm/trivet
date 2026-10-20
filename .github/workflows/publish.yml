@@ -1,0 +1,27 @@
+# Builds the game on every push to main and publishes the web app to the gh-pages branch,
+# which GitHub Pages serves at https://wadruptrystan-lgtm.github.io/trivet/
+name: Publish web app
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publish
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: python3 build.py && node --check dist/app.js
+      - name: Publish dist/web to gh-pages
+        run: |
+          cd dist/web
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Publish ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages

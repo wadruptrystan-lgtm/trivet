@@ -12,6 +12,9 @@ This concatenates `src/` into one page:
 - `dist/app.js`: the combined script, for `node --check`.
 - `dist/web/`: the installable web app: `index.html`, `manifest.webmanifest`, the offline service worker `sw.js` and the icons, copied from `web/`. Host this folder on any static host served over https.
 
+## Publishing
+Every push to `main` runs `.github/workflows/publish.yml`. It builds the game and publishes `dist/web` to the `gh-pages` branch, which GitHub Pages serves at https://wadruptrystan-lgtm.github.io/trivet/
+
 ## Layout
 - `src/engine.js`: the Scoop rules engine and AI (global `Scoop`).
 - `src/core.js`: utilities, saved state (`S`, `save()`, `load()`), catalogue, sound.
